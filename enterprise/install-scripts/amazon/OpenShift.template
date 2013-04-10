@@ -1,17 +1,17 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
-  "Description" : "AWS CloudFormation for setting up an OpenShift environment",
+  "Description" : "AWS CloudFormation for setting up an OpenShift environment - ITisOpen.net",
 
   "Parameters" : {
     "Prefix" : {
       "Type" : "String",
-      "Default" : "demo",
+      "Default" : "openshift.cloud",
       "Description" : "Your DNS Prefix"
     },
     "HostedZone" : {
       "Type" : "String",
-      "Default" : "cloudydemo.com",
+      "Default" : "itisopen.net",
       "Description" : "Your Route53 Zone"
     }
   },
@@ -26,7 +26,7 @@
     "StandardSecurityGroup" : {
       "Type" : "AWS::EC2::SecurityGroup",
       "Properties" : {
-        "GroupDescription" : "Standard firewall rules",
+        "GroupDescription" : "OpenShift Standard firewall rules",
         "SecurityGroupIngress" : [ {
           "IpProtocol" : "udp",
           "FromPort" : "1",
@@ -54,7 +54,7 @@
       "Properties" : {
         "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
         "InstanceType" : "m1.small",
-        "KeyName" : "libra",
+        "KeyName" : "itisopen_demo",
         "SecurityGroups" : [ {"Ref" : "StandardSecurityGroup"} ],
         "Tags" : [{"Key" : "Name", "Value" : { "Fn::Join" : ["-",["openshift", {"Ref":"Prefix"}, "named"]]}}],
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["",[
@@ -115,7 +115,7 @@
       "Properties" : {
         "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
         "InstanceType" : "m1.large",
-        "KeyName" : "libra",
+        "KeyName" : "itisopen_demo",
         "SecurityGroups" : [ {"Ref" : "StandardSecurityGroup"} ],
         "Tags" : [{"Key" : "Name", "Value" : { "Fn::Join" : ["-",["openshift", {"Ref":"Prefix"}, "mongo"]]}}],
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["",[
@@ -164,7 +164,7 @@
       "Properties" : {
         "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
         "InstanceType" : "m1.large",
-        "KeyName" : "libra",
+        "KeyName" : "itisopen_demo",
         "SecurityGroups" : [ {"Ref" : "StandardSecurityGroup"} ],
         "Tags" : [{"Key" : "Name", "Value" : { "Fn::Join" : ["-",["openshift", {"Ref":"Prefix"}, "activemq"]]}}],
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["",[
@@ -211,7 +211,7 @@
       "Properties" : {
         "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
         "InstanceType" : "m1.large",
-        "KeyName" : "libra",
+        "KeyName" : "itisopen_demo",
         "SecurityGroups" : [ {"Ref" : "StandardSecurityGroup"} ],
         "Tags" : [{"Key" : "Name", "Value" : { "Fn::Join" : ["-",["openshift", {"Ref":"Prefix"}, "broker"]]}}],
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["",[
@@ -261,7 +261,7 @@
       "Properties" : {
         "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
         "InstanceType" : "m1.large",
-        "KeyName" : "libra",
+        "KeyName" : "itisopen_demo",
         "SecurityGroups" : [ {"Ref" : "StandardSecurityGroup"} ],
         "Tags" : [{"Key" : "Name", "Value" : { "Fn::Join" : ["-",["openshift", {"Ref":"Prefix"}, "node"]]}}],
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["",[
